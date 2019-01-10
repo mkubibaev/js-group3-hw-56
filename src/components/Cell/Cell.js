@@ -12,7 +12,11 @@ const Cell = props => {
 			className={cellClasses.join(' ')}
 			onClick={props.onClick}
 		>
-			{props.hasItem ? <span>O</span> : null}
+			<span className="front" />
+			{props.hasItem ?
+				<span className="back"><strong>O</strong></span>
+				: <span className="back"/>
+			}
 		</div>
 	);
 };
