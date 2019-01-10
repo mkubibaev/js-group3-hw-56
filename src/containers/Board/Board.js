@@ -2,14 +2,15 @@ import React, {Component} from 'react';
 import Cell from "../../components/Cell/Cell";
 import Reset from "../../components/Reset/Reset";
 import Tries from "../../components/Tries/Tries";
+import Finish from "../../components/Finish/Finish";
 
 class Board extends Component {
 
 	state = {
 		cells: [],
-		tries: 0
+		tries: 0,
+		finished: false
 	};
-
 
 	componentDidMount() {
 		this.resetGame();
@@ -18,10 +19,14 @@ class Board extends Component {
 	onClick = id => {
 		const cells = this.state.cells;
 
-		if (!cells[id].clicked) {
+		if (!cells[id].clicked && !this.state.finished) {
 			cells[id].clicked = true;
 
-			this.setState({cells, tries: this.state.tries + 1})
+			if (cells[id].hasItem) {
+				this.setState({cells, tries: this.state.tries + 1, finished: true});
+			}
+
+			this.setState({cells, tries: this.state.tries + 1});
 		}
 	};
 
@@ -37,7 +42,7 @@ class Board extends Component {
 			cells.push(cell);
 		}
 
-		this.setState({cells, tries: 0})
+		this.setState({cells, tries: 0, finished: false})
 	};
 
 	render () {
@@ -55,6 +60,7 @@ class Board extends Component {
 				</div>
 				<Tries tries={this.state.tries}/>
 				<Reset reset={this.resetGame}/>
+				<Finish finished={this.state.finished}/>
 			</div>
 		)
 	}
