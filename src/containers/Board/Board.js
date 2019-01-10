@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Cell from "../../components/Cell/Cell";
+import Reset from "../../components/Reset/Reset";
+import Tries from "../../components/Tries/Tries";
 
 class Board extends Component {
 
@@ -42,17 +44,17 @@ class Board extends Component {
 		return (
 			<div className="Board">
 				<div className="BoardInner">
-				{this.state.cells.map(cell => (
-					<Cell
-						key={cell.id}
-						clicked={cell.clicked}
-						hasItem={cell.hasItem}
-						onClick={() => this.onClick(cell.id)}
-					/>
-				))}
+					{this.state.cells.map(cell => (
+						<Cell
+							key={cell.id}
+							clicked={cell.clicked}
+							hasItem={cell.hasItem}
+							onClick={() => this.onClick(cell.id)}
+						/>
+					))}
 				</div>
-				<p>Tries: {this.state.tries}</p>
-				<button onClick={this.resetGame}>Reset</button>
+				<Tries tries={this.state.tries}/>
+				<Reset reset={this.resetGame}/>
 			</div>
 		)
 	}
